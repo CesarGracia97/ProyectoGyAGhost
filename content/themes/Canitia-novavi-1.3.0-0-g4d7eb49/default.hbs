@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="{{@site.lang}}">
+  <head>
+    <title>{{meta_title}}</title>
+    {{! Document Settings }}
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    {{! Responsive Meta Tags }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.1/pure-min.css" integrity="sha256-fPXvMqJjeydW056U7AUM/dp5L+sRz0xPK0Mx3p20nkI=" crossorigin="anonymous" />
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.1/grids-responsive-min.css" integrity="sha256-4v5Mb8doqtYXS4O6WjkWeCXyi/6fezMMAINzFpEM5gU=" crossorigin="anonymous" />
+    <!--<![endif]-->
+    <!-- own stylesheet for general stuff -->
+    <link rel="stylesheet" href="{{asset "css/style.css"}}">
+    <!-- other used items -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    {{! Ghost outputs important style and meta data with this tag }}
+    {{ghost_head}}
+</head>
+
+
+<!-- main navigation -->
+{{navigation}}
+<main class="{{body_class}}">
+
+{{#is "tag"}}
+    <div class="tag_head_wrap">
+      {{#tag}}
+          <div class="tag_heading text-center" style="background-image: url(  {{#if feature_image}}{{img_url feature_image}}{{else}}{{asset "images/fallback-image.jpg"}}{{/if}});">
+          <p class="posttitle">{{name}}</p>
+          </div>
+      {{/tag}}
+    </div>
+{{/is}}
+
+{{#is "post, page"}}
+    <div class="tag_head_wrap">
+      {{#post}}
+            <div class="tag_heading tag_heading_post text-center" style="background-image: url({{#if feature_image}}{{img_url feature_image}}{{else}}{{asset "images/fallback-image.jpg"}}{{/if}});">
+            
+            </div>
+      {{/post}}
+    </div>
+{{/is}}
+
+{{#is "home"}}
+  {{#if @site.cover_image}}
+      <div class="tag_head_wrap cover-image">
+          <div class="tag_heading tag_heading_post text-center" style="background-image: url({{@site.cover_image}});">
+          
+          </div>
+      </div>
+    {{/if}}
+{{/is}}
+<div class="container-fluid">
+
+    {{{body}}}
+
+</div><!-- container fluid END! -->
+</main>
+
+<footer class="page-footer">
+    <div class="top-socials">
+      <a href="{{@site.url}}/rss" target="_blank"><i class="fas fa-rss"></i></a>
+      {{#if @site.facebook}}
+        <a href="{{facebook_url @site.facebook}}" target="_blank"><i class="fab fa-facebook"></i></a>
+      {{/if}}
+      {{#if @site.twitter}}
+        <a href="{{twitter_url @site.twitter}}" target="_blank"><i class="fab fa-twitter" ></i></a>
+      {{/if}}  
+    </div>
+    {{> 'ui/footer'}}
+</footer>
+<!-- Loading fonts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      families: ['Roboto:900', 'Montserrat Alternates:300', 'Antic Slab']
+    }
+  });
+</script>
+
+<!-- Ghost CSS related to the gallery -->
+<script>
+    var images = document.querySelectorAll('.kg-gallery-image img');
+    images.forEach(function (image) {
+        var container = image.closest('.kg-gallery-image');
+        var width = image.attributes.width.value;
+        var height = image.attributes.height.value;
+        var ratio = width / height;
+        container.style.flex = ratio + ' 1 0%';
+    })
+</script>
+{{ghost_foot}}
+</html>
